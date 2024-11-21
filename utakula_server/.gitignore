@@ -1,0 +1,14 @@
+# Ignore CSV files
+*.csv
+
+# Ignore __pycache__ directories in specific folders
+controllers/__pycache__/
+routes/__pycache__/
+models/__pycache__/
+schemas/__pycache__/
+
+# Ignore __pycache__ in the main directory
+/__pycache__/
+
+# Ignore environment files
+.env
