@@ -4,6 +4,7 @@ import 'package:meal_planner/firebase_options.dart';
 import 'package:meal_planner/screens/foods.dart';
 import 'package:meal_planner/screens/homepage.dart';
 import 'package:meal_planner/screens/how_to_prepare.dart';
+import 'package:meal_planner/screens/invite_friends_family.dart';
 import 'package:meal_planner/screens/login.dart';
 import 'package:meal_planner/screens/day_meal_plan.dart';
 import 'package:meal_planner/screens/new_meal_plan.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
           '/new_plan': (context) => const NewMealPlan(
                 userMealPlan: [],
               ),
+          '/invite': (context) => const InviteFriendsFamily(),
           '/account': (context) => const UserAccount(),
         });
   }
