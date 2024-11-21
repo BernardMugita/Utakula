@@ -1,0 +1,622 @@
+[
+    {
+        "name": "Ugali",
+        "calories": {
+            "total": 380,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 82,
+                    "unit": "g",
+                    "calories": 328
+                },
+                "protein": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 32
+                },
+                "fat": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 9
+                },
+                "fiber": {
+                    "amount": 2,
+                    "unit": "g",
+                    "calories": 8
+                }
+            }
+        }
+    },
+    {
+        "name": "Meat (beef)",
+        "calories": {
+            "total": 250,
+            "breakdown": {
+                "protein": {
+                    "amount": 30,
+                    "unit": "g",
+                    "calories": 120
+                },
+                "fat": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 135
+                }
+            }
+        }
+    },
+    {
+        "name": "Meat (goat)",
+        "calories": {
+            "total": 250,
+            "breakdown": {
+                "protein": {
+                    "amount": 30,
+                    "unit": "g",
+                    "calories": 120
+                },
+                "fat": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 135
+                }
+            }
+        }
+    },
+    {
+        "name": "Chicken (kuku)",
+        "calories": {
+            "total": 250,
+            "breakdown": {
+                "protein": {
+                    "amount": 27,
+                    "unit": "g",
+                    "calories": 108
+                },
+                "fat": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 135
+                }
+            }
+        }
+    },
+    {
+        "name": "Chapati",
+        "calories": {
+            "total": 300,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 45,
+                    "unit": "g",
+                    "calories": 180
+                },
+                "protein": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 32
+                },
+                "fat": {
+                    "amount": 10,
+                    "unit": "g",
+                    "calories": 90
+                }
+            }
+        }
+    },
+    {
+        "name": "Githeri",
+        "calories": {
+            "total": 360,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 60,
+                    "unit": "g",
+                    "calories": 240
+                },
+                "protein": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 60
+                },
+                "fiber": {
+                    "amount": 10,
+                    "unit": "g",
+                    "calories": 40
+                }
+            }
+        }
+    },
+    {
+        "name": "Sukuma Wiki",
+        "calories": {
+            "total": 70,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 10,
+                    "unit": "g",
+                    "calories": 40
+                },
+                "protein": {
+                    "amount": 4,
+                    "unit": "g",
+                    "calories": 16
+                },
+                "fiber": {
+                    "amount": 3,
+                    "unit": "g",
+                    "calories": 12
+                }
+            }
+        }
+    },
+    {
+        "name": "Pilau",
+        "calories": {
+            "total": 450,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 65,
+                    "unit": "g",
+                    "calories": 260
+                },
+                "protein": {
+                    "amount": 12,
+                    "unit": "g",
+                    "calories": 48
+                },
+                "fat": {
+                    "amount": 10,
+                    "unit": "g",
+                    "calories": 90
+                }
+            }
+        }
+    },
+    {
+        "name": "Mukimo",
+        "calories": {
+            "total": 220,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 45,
+                    "unit": "g",
+                    "calories": 180
+                },
+                "protein": {
+                    "amount": 6,
+                    "unit": "g",
+                    "calories": 24
+                },
+                "fiber": {
+                    "amount": 3,
+                    "unit": "g",
+                    "calories": 12
+                }
+            }
+        }
+    },
+    {
+        "name": "Matoke",
+        "calories": {
+            "total": 150,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 35,
+                    "unit": "g",
+                    "calories": 140
+                },
+                "protein": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 4
+                },
+                "fat": {
+                    "amount": 0.5,
+                    "unit": "g",
+                    "calories": 4.5
+                }
+            }
+        }
+    },
+    {
+        "name": "Spaghetti",
+        "calories": {
+            "total": 220,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 42,
+                    "unit": "g",
+                    "calories": 168
+                },
+                "protein": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 32
+                },
+                "fat": {
+                    "amount": 2,
+                    "unit": "g",
+                    "calories": 18
+                }
+            }
+        }
+    },
+    {
+        "name": "Tea",
+        "calories": {
+            "total": 30,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 4
+                },
+                "fat": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 9
+                }
+            }
+        }
+    },
+    {
+        "name": "Milk",
+        "calories": {
+            "total": 150,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 12,
+                    "unit": "g",
+                    "calories": 48
+                },
+                "protein": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 32
+                },
+                "fat": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 72
+                }
+            }
+        }
+    },
+    {
+        "name": "Mandazi",
+        "calories": {
+            "total": 300,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 45,
+                    "unit": "g",
+                    "calories": 180
+                },
+                "fat": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 135
+                }
+            }
+        }
+    },
+    {
+        "name": "Banana",
+        "calories": {
+            "total": 89,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 23,
+                    "unit": "g",
+                    "calories": 92
+                }
+            }
+        }
+    },
+    {
+        "name": "Apple",
+        "calories": {
+            "total": 95,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 25,
+                    "unit": "g",
+                    "calories": 100
+                },
+                "fiber": {
+                    "amount": 4,
+                    "unit": "g",
+                    "calories": 16
+                }
+            }
+        }
+    },
+    {
+        "name": "Mango",
+        "calories": {
+            "total": 60,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 60
+                }
+            }
+        }
+    },
+    {
+        "name": "Orange",
+        "calories": {
+            "total": 62,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 60
+                }
+            }
+        }
+    },
+    {
+        "name": "Watermelon",
+        "calories": {
+            "total": 30,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 7.5,
+                    "unit": "g",
+                    "calories": 30
+                }
+            }
+        }
+    },
+    {
+        "name": "Orange Juice",
+        "calories": {
+            "total": 112,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 26,
+                    "unit": "g",
+                    "calories": 104
+                },
+                "fat": {
+                    "amount": 0.5,
+                    "unit": "g",
+                    "calories": 4.5
+                },
+                "protein": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 4
+                }
+            }
+        }
+    },
+    {
+        "name": "Mango Juice",
+        "calories": {
+            "total": 110,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 27,
+                    "unit": "g",
+                    "calories": 108
+                },
+                "fat": {
+                    "amount": 0.5,
+                    "unit": "g",
+                    "calories": 4.5
+                },
+                "protein": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 4
+                }
+            }
+        }
+    },
+    {
+        "name": "Coffee",
+        "calories": {
+            "total": 2,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 0,
+                    "unit": "g",
+                    "calories": 0
+                },
+                "fat": {
+                    "amount": 0,
+                    "unit": "g",
+                    "calories": 0
+                },
+                "protein": {
+                    "amount": 0.3,
+                    "unit": "g",
+                    "calories": 1
+                }
+            }
+        }
+    },
+    {
+        "name": "Nduma",
+        "calories": {
+            "total": 108,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 25,
+                    "unit": "g",
+                    "calories": 100
+                },
+                "protein": {
+                    "amount": 2,
+                    "unit": "g",
+                    "calories": 8
+                }
+            }
+        }
+    },
+    {
+        "name": "Omena",
+        "calories": {
+            "total": 180,
+            "breakdown": {
+                "protein": {
+                    "amount": 30,
+                    "unit": "g",
+                    "calories": 120
+                },
+                "fat": {
+                    "amount": 6,
+                    "unit": "g",
+                    "calories": 54
+                },
+                "carbohydrate": {
+                    "amount": 2,
+                    "unit": "g",
+                    "calories": 8
+                }
+            }
+        }
+    },
+    {
+        "name": "Plain Rice",
+        "calories": {
+            "total": 130,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 28,
+                    "unit": "g",
+                    "calories": 112
+                },
+                "protein": {
+                    "amount": 2.7,
+                    "unit": "g",
+                    "calories": 11
+                },
+                "fat": {
+                    "amount": 0.3,
+                    "unit": "g",
+                    "calories": 3
+                }
+            }
+        }
+    },
+    {
+        "name": "Cinnamon Rolls",
+        "calories": {
+            "total": 300,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 45,
+                    "unit": "g",
+                    "calories": 180
+                },
+                "fat": {
+                    "amount": 10,
+                    "unit": "g",
+                    "calories": 90
+                },
+                "protein": {
+                    "amount": 4,
+                    "unit": "g",
+                    "calories": 16
+                }
+            }
+        }
+    },
+    {
+        "name": "Croissant",
+        "calories": {
+            "total": 300,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 30,
+                    "unit": "g",
+                    "calories": 120
+                },
+                "fat": {
+                    "amount": 20,
+                    "unit": "g",
+                    "calories": 180
+                },
+                "protein": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 32
+                }
+            }
+        }
+    },
+    {
+        "name": "Tea Scones",
+        "calories": {
+            "total": 250,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 30,
+                    "unit": "g",
+                    "calories": 120
+                },
+                "fat": {
+                    "amount": 10,
+                    "unit": "g",
+                    "calories": 90
+                },
+                "protein": {
+                    "amount": 4,
+                    "unit": "g",
+                    "calories": 16
+                }
+            }
+        }
+    },
+    {
+        "name": "Muffins",
+        "calories": {
+            "total": 200,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 30,
+                    "unit": "g",
+                    "calories": 120
+                },
+                "fat": {
+                    "amount": 8,
+                    "unit": "g",
+                    "calories": 72
+                },
+                "protein": {
+                    "amount": 4,
+                    "unit": "g",
+                    "calories": 16
+                }
+            }
+        }
+    },
+    {
+        "name": "Bread",
+        "calories": {
+            "total": 80,
+            "breakdown": {
+                "carbohydrate": {
+                    "amount": 15,
+                    "unit": "g",
+                    "calories": 60
+                },
+                "protein": {
+                    "amount": 3,
+                    "unit": "g",
+                    "calories": 12
+                },
+                "fat": {
+                    "amount": 1,
+                    "unit": "g",
+                    "calories": 9
+                }
+            }
+        }
+    }
+]

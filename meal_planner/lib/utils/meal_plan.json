@@ -1,0 +1,261 @@
+[
+    {
+        "day": "Monday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Tea",
+                    "image_url": "tea.png",
+                    "calories": 30
+                },
+                {
+                    "name": "Mandazi",
+                    "image_url": "",
+                    "calories": 300
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Ugali",
+                    "image_url": "ugali.png",
+                    "calories": 380
+                },
+                {
+                    "name": "Sukuma Wiki",
+                    "image_url": "kales.png",
+                    "calories": 70
+                },
+                {
+                    "name": "Meat (nyama)",
+                    "image_url": "meat.png",
+                    "calories": 250
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Chapati",
+                    "image_url": "chapati.png",
+                    "calories": 300
+                },
+                {
+                    "name": "Omena (Sardines)",
+                    "image_url": "omena.png",
+                    "calories": 200
+                }
+            ]
+        },
+        "total_calories": 1530
+    },
+    {
+        "day": "Tuesday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Coffee",
+                    "image_url": "coffee.png",
+                    "calories": 2
+                },
+                {
+                    "name": "Bread",
+                    "image_url": "",
+                    "calories": 140
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Githeri",
+                    "image_url": "githeri.png",
+                    "calories": 360
+                },
+                {
+                    "name": "Samosa",
+                    "image_url": "",
+                    "calories": 140
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Mukimo",
+                    "image_url": "mukimo.png",
+                    "calories": 220
+                }
+            ]
+        },
+        "total_calories": 862
+    },
+    {
+        "day": "Wednesday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Milk",
+                    "image_url": "",
+                    "calories": 150
+                },
+                {
+                    "name": "Muffins",
+                    "image_url": "",
+                    "calories": 180
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Pilau",
+                    "image_url": "pilau.png",
+                    "calories": 450
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Matoke",
+                    "image_url": "matoke.png",
+                    "calories": 150
+                }
+            ]
+        },
+        "total_calories": 930
+    },
+    {
+        "day": "Thursday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Tea",
+                    "image_url": "tea.png",
+                    "calories": 30
+                },
+                {
+                    "name": "Scones",
+                    "image_url": "",
+                    "calories": 120
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Spaghetti",
+                    "image_url": "spaghetti.png",
+                    "calories": 220
+                },
+                {
+                    "name": "Nyama Choma",
+                    "image_url": "meat.png",
+                    "calories": 250
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Omena (Sardines)",
+                    "image_url": "omena.png",
+                    "calories": 200
+                }
+            ]
+        },
+        "total_calories": 820
+    },
+    {
+        "day": "Friday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Mango Juice",
+                    "image_url": "mango-juice.png",
+                    "calories": 110
+                },
+                {
+                    "name": "Bread",
+                    "image_url": "",
+                    "calories": 70
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Matoke",
+                    "image_url": "matoke.png",
+                    "calories": 150
+                },
+                {
+                    "name": "Samosa",
+                    "image_url": "",
+                    "calories": 140
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Githeri",
+                    "image_url": "githeri.png",
+                    "calories": 360
+                }
+            ]
+        },
+        "total_calories": 930
+    },
+    {
+        "day": "Saturday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Orange Juice",
+                    "image_url": "",
+                    "calories": 112
+                },
+                {
+                    "name": "Cinnamon Rolls",
+                    "image_url": "",
+                    "calories": 290
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Ugali",
+                    "image_url": "ugali.png",
+                    "calories": 380
+                },
+                {
+                    "name": "Nyama Choma",
+                    "image_url": "meat.png",
+                    "calories": 250
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Chapati",
+                    "image_url": "chapati.png",
+                    "calories": 300
+                }
+            ]
+        },
+        "total_calories": 1332
+    },
+    {
+        "day": "Sunday",
+        "meals": {
+            "breakfast": [
+                {
+                    "name": "Tea",
+                    "image_url": "tea.png",
+                    "calories": 30
+                },
+                {
+                    "name": "Croissant",
+                    "image_url": "",
+                    "calories": 231
+                }
+            ],
+            "lunch": [
+                {
+                    "name": "Pilau",
+                    "image_url": "pilau.png",
+                    "calories": 450
+                }
+            ],
+            "supper": [
+                {
+                    "name": "Nyama Choma",
+                    "image_url": "meat.png",
+                    "calories": 250
+                }
+            ]
+        },
+        "total_calories": 961
+    }
+]

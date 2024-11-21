@@ -1,0 +1,170 @@
+[
+    {
+        "image_url": "ugali.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Ugali"
+    },
+    {
+        "image_url": "meat.png",
+        "macro_nutrient": "protein",
+        "meal_type": "lunch or supper",
+        "name": "Meat (nyama)"
+    },
+    {
+        "image_url": "chapati.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Chapati"
+    },
+    {
+        "image_url": "githeri.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Githeri"
+    },
+    {
+        "image_url": "kales.png",
+        "macro_nutrient": "vitamins",
+        "meal_type": "lunch or supper",
+        "name": "Sukuma Wiki"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Samosa"
+    },
+    {
+        "image_url": "pilau.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Pilau"
+    },
+    {
+        "image_url": "mukimo.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Mukimo"
+    },
+    {
+        "image_url": "matoke.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Matoke"
+    },
+    {
+        "image_url": "spaghetti.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Spaghetti"
+    },
+    {
+        "image_url": "nduma.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "lunch or supper",
+        "name": "Nduma (Arrow root)"
+    },
+    {
+        "image_url": "omena.png",
+        "macro_nutrient": "protein",
+        "meal_type": "lunch or supper",
+        "name": "Omena (Sardines)"
+    },
+    {
+        "image_url": "coffee.png",
+        "macro_nutrient": "none",
+        "meal_type": "beverage",
+        "name": "Coffee"
+    },
+    {
+        "image_url": "tea.png",
+        "macro_nutrient": "none",
+        "meal_type": "beverage",
+        "name": "Tea"
+    },
+    {
+        "image_url": "mango-juice.png",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "beverage",
+        "name": "Mango Juice"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "beverage",
+        "name": "Orange Juice"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "protein",
+        "meal_type": "beverage",
+        "name": "Milk"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "breakfast or snack",
+        "name": "Bread"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "breakfast or snack",
+        "name": "Muffins"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "breakfast or snack",
+        "name": "Tea Scones"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "breakfast or snack",
+        "name": "Croissant"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "breakfast or snack",
+        "name": "Cinnamon Rolls"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "breakfast or snack",
+        "name": "Mandazi"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "fruit",
+        "name": "Banana"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "fruit",
+        "name": "Mango"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "fruit",
+        "name": "Orange"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "fruit",
+        "name": "Watermelon"
+    },
+    {
+        "image_url": "",
+        "macro_nutrient": "carbohydrate",
+        "meal_type": "fruit",
+        "name": "Apple"
+    }
+]
