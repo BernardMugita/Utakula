@@ -3,8 +3,9 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from models.meal_plan_model import MealPlanModel
-from schemas.meal_plan_schema import CreateMealPlanResponse, MealPlanCreate, MealPlanRead, MealPlanUpdate, RetrieveMealPlanResponse, UpdateMealPlanResponse
+from schemas.meal_plan_schema import CreateMealPlanResponse, FetchMemberPlansResponse, MealPlanCreate, MealPlanRead, MealPlanUpdate, RetrieveMealPlanResponse, SharedMealPlanRead, UpdateMealPlanResponse
 
+from models.user_model import UserModel
 from utils.helper_utils import HelperUtils
 
 utils = HelperUtils()
@@ -40,6 +41,7 @@ class MealPlanController:
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="User already has a meal plan."
                 )
+            
                 
             # Convert meal plan to a JSON-serializable format
             meal_plan_dict = [
@@ -49,7 +51,7 @@ class MealPlanController:
             # Create an instance of MealPlanModel
             new_meal_plan = MealPlanModel(
                 user_id=payload['user_id'],
-                members={},
+                members=[],
                 meal_plan=meal_plan_dict
             )
             
@@ -193,3 +195,90 @@ class MealPlanController:
                     payload=str(e)
                 ).dict()
             )
+            
+    
+    def get_member_meal_plans(self, db: Session, authorization: str = Header(...)):
+        """Retrieve meal plans shared with the logged-in user.
+
+        Args:
+            db (Session): Database session.
+            authorization (str): Authorization header containing a Bearer token.
+
+        Raises:
+            HTTPException: For invalid or missing token information.
+
+        Returns:
+            dict: Response containing shared meal plans.
+        """
+        try:
+            # Validate the authorization header
+            if not authorization.startswith("Bearer "):
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Authorization header must start with 'Bearer '"
+                )
+
+            # Extract and validate the token
+            token = authorization[7:]
+            payload = utils.validate_JWT(token)
+
+            # Extract user_id from the payload
+            user_id = payload.get("user_id")
+            if not user_id:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Invalid token: user_id not found in payload"
+                )
+
+            # Query meal plans where user_id is in the members list
+            list_of_meal_plans = db.query(MealPlanModel).filter(
+                MealPlanModel.members.contains(user_id)
+            ).all()
+
+            if not list_of_meal_plans:
+                return JSONResponse(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    content=FetchMemberPlansResponse(
+                        status="error",
+                        message="No meal plans found for this user!",
+                        payload="404"
+                    ).dict()
+                )
+
+            # Fetch the username for each meal plan's owner (user_id)
+            response_payload = []
+            for plan in list_of_meal_plans:
+                owner_user = db.query(UserModel).filter(UserModel.id == plan.user_id).first()
+                if not owner_user:
+                    raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Owner with user_id {plan.user_id} not found"
+                    )
+
+                response_payload.append(
+                    SharedMealPlanRead(
+                        id=plan.id,
+                        user_id=plan.user_id,
+                        owner=owner_user.username,  # Fetch correct username
+                        members=plan.members,
+                        meal_plan=plan.meal_plan
+                    )
+                )
+
+            # Construct and return the response
+            return {
+                "status": "success",
+                "message": "Meal plans retrieved successfully",
+                "payload": response_payload,
+            }
+
+        except Exception as e:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content=FetchMemberPlansResponse(
+                    status="error",
+                    message="Error retrieving Meal Plans!",
+                    payload=str(e)
+                ).dict()
+            )
+

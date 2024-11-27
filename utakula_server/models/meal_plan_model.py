@@ -19,7 +19,7 @@ class MealPlanModel(Base):
         ForeignKey("users.user_id", ondelete="CASCADE"), nullable=False
     )
     
-    members: Mapped[dict] = mapped_column(JSON, nullable=False)
+    members: Mapped[list] = mapped_column(JSON, nullable=False)
     
     meal_plan: Mapped[dict] = mapped_column(JSON, nullable=False)
 

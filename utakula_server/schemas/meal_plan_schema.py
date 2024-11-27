@@ -28,10 +28,17 @@ class MealPlanCreate(BaseModel):
 class MealPlanRead(BaseModel):
     id: uuid.UUID
     user_id: str
-    members: Dict[str, Member]
+    members: list[str, Member]
     meal_plan: list[DayMealPlan]
     
 class MealPlanUpdate(BaseModel):
+    meal_plan: list[DayMealPlan]
+    
+class SharedMealPlanRead(BaseModel):
+    id: uuid.UUID
+    user_id: str
+    owner: str
+    members: list[str, Member]
     meal_plan: list[DayMealPlan]
 
 class CreateMealPlanResponse(BaseModel):
@@ -51,6 +58,11 @@ class UpdateMealPlanResponse(BaseModel):
     status: str
     message: str
     payload: Union[MealPlanRead, str]
+    
+class FetchMemberPlansResponse(BaseModel):
+    status: str
+    message: str
+    payload: list[SharedMealPlanRead] | str
     
     class Config:
             from_attributes = True
