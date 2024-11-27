@@ -54,57 +54,60 @@ class _CaloriePopupState extends State<CaloriePopup> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (int i = 0; i < foods.length; i++)
-                FutureBuilder<String>(
-                  future: FirebaseStorage.instance
-                      .refFromURL(
-                          'gs://mealplanner-86fce.appspot.com/${foods[i]['image_url']}')
-                      .getDownloadURL(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: SizedBox(
-                          width: 120, // Fixed width for the loader
-                          height: 120, // Fixed height for the loader
-                          child: Lottie.asset(
-                            "assets/animations/Loading.json",
-                            fit: BoxFit.cover, // Adjust the fit if necessary
-                            repeat: true, // Ensures the animation keeps looping
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 0; i < foods.length; i++)
+                  FutureBuilder<String>(
+                    future: FirebaseStorage.instance
+                        .refFromURL(
+                            'gs://mealplanner-86fce.appspot.com/${foods[i]['image_url']}')
+                        .getDownloadURL(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: SizedBox(
+                            width: 80, // Fixed width for the loader
+                            height: 80, // Fixed height for the loader
+                            child: Lottie.asset(
+                              "assets/animations/Loading.json",
+                              fit: BoxFit.cover, // Adjust the fit if necessary
+                              repeat: true, // Ensures the animation keeps looping
+                            ),
                           ),
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Icon(
-                        FluentIcons.food_24_regular,
-                        size: 50,
-                      );
-                    } else if (snapshot.hasData) {
-                      return Align(
-                        widthFactor: 0.5,
-                        child: Image.network(
-                          snapshot.data!,
-                          fit: BoxFit.contain,
-                          height: _getImageSize(i),
-                          width: _getImageSize(i),
-                          errorBuilder: (context, error, stackTrace) {
-                            return Icon(
-                              FluentIcons.food_24_regular,
-                              size: _getImageSize(i),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        child: Text("We have a problem!"),
-                      ); // Handle case where snapshot has no data
-                    }
-                  },
-                ),
-            ],
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Icon(
+                          FluentIcons.food_24_regular,
+                          size: 50,
+                        );
+                      } else if (snapshot.hasData) {
+                        return Align(
+                          widthFactor: 0.5,
+                          child: Image.network(
+                            snapshot.data!,
+                            fit: BoxFit.contain,
+                            height: _getImageSize(i),
+                            width: _getImageSize(i),
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                FluentIcons.food_24_regular,
+                                size: _getImageSize(i),
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          child: Text("We have a problem!"),
+                        ); // Handle case where snapshot has no data
+                      }
+                    },
+                  ),
+              ],
+            ),
           ),
           SizedBox(
             width: double.infinity,

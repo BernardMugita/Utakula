@@ -7,7 +7,10 @@ import 'package:gap/gap.dart';
 import 'package:meal_planner/widgets/app_widgets/dot_loader.dart';
 
 class InviteFriendsFamily extends StatefulWidget {
-  const InviteFriendsFamily({super.key});
+  final Map mealPlan;
+
+  const InviteFriendsFamily({Key? key, required this.mealPlan})
+      : super(key: key);
 
   @override
   State<InviteFriendsFamily> createState() => _InviteFriendsFamilyState();
@@ -15,6 +18,7 @@ class InviteFriendsFamily extends StatefulWidget {
 
 class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
   final TextEditingController emailController = TextEditingController();
+
   FuncUtils appFuncs = FuncUtils();
   InvitationApi invite = InvitationApi();
 
@@ -23,6 +27,7 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
   Map response = {};
 
   bool isVerifying = false;
+  bool isLoading = false;
   bool validated = false;
 
   Future<Map<String, dynamic>> validateEmails() async {
@@ -46,7 +51,6 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
           response = verifyEmailsRequest['payload'];
           isVerifying = false;
           if (response['invalid_emails'].isEmpty) {
-            print("Validated");
             validated = true;
           }
         });
@@ -54,6 +58,59 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
     } catch (e) {
       setState(() {
         isVerifying = false;
+      });
+    }
+
+    return {};
+  }
+
+  Future<Map<String, dynamic>> sendInvites() async {
+    if (response['existing_emails'].isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("List of emails is empty")),
+      );
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      String? token = await appFuncs.fetchUserToken();
+
+      if (token != null) {
+        final sendInvitesRequest = await invite.sendOutInvites(
+            token, response['existing_emails'], widget.mealPlan['id']);
+
+        if (sendInvitesRequest['status'] == "success") {
+          setState(() {
+            isLoading = false;
+          });
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: ThemeUtils.$primaryColor,
+                content: Text(
+                  "Invites Sent Successfully.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: ThemeUtils.$secondaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                duration: Duration(seconds: 3),
+              ),
+            );
+            Future.delayed(const Duration(seconds: 3), () {
+              if (mounted) {
+                Navigator.pop(context);
+              }
+            });
+          }
+        }
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
       });
     }
 
@@ -140,7 +197,9 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
                         ],
                       ),
                       const Gap(10),
-                      if (emailAddresses.isNotEmpty && !validated)
+                      if (emailAddresses.isNotEmpty &&
+                          !validated &&
+                          !isVerifying)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -171,31 +230,39 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
                     ]),
               ),
             )),
-            if (isVerifying) const DotLoader(radius: 5, numberOfDots: 7),
-            if (!isVerifying && validated && response['invalid_emails'].isEmpty)
+            if (isVerifying)
+              const DotLoader(radius: 5, numberOfDots: 7)
+            else if (!isVerifying &&
+                validated &&
+                response['invalid_emails'].isEmpty)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                          color: ThemeUtils.$primaryColor, width: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  if (isLoading)
+                    const DotLoader(radius: 5, numberOfDots: 7)
+                  else
+                    OutlinedButton(
+                      onPressed: () {
+                        sendInvites();
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                            color: ThemeUtils.$primaryColor, width: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        foregroundColor: ThemeUtils.$primaryColor,
+                        backgroundColor: Colors.transparent,
                       ),
-                      foregroundColor: ThemeUtils.$primaryColor,
-                      backgroundColor: Colors.transparent,
+                      child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Share Meal plan"),
+                          Gap(5),
+                          Icon(FluentIcons.share_24_regular)
+                        ],
+                      ),
                     ),
-                    child: const Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Continue to next step"),
-                        Gap(5),
-                        Icon(FluentIcons.checkmark_24_regular)
-                      ],
-                    ),
-                  ),
                 ],
               )
             else
@@ -234,11 +301,17 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
                       onPressed: () {
                         if (emailController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Email is required")),
+                            const SnackBar(
+                              content: Text("Email is required"),
+                              duration: Duration(milliseconds: 500),
+                            ),
                           );
                         } else if (!emailController.text.contains('@')) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Email is invalid")),
+                            const SnackBar(
+                              content: Text("Email is invalid"),
+                              duration: Duration(milliseconds: 500),
+                            ),
                           );
                         } else {
                           // Check if email already exists
@@ -250,12 +323,16 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text("Email added successfully")),
+                                content: Text("Email added successfully"),
+                                duration: Duration(milliseconds: 500),
+                              ),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text("Email already exists.")),
+                                content: Text("Email already exists."),
+                                duration: Duration(milliseconds: 500),
+                              ),
                             );
                           }
                         }
@@ -295,7 +372,9 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
               ? const Color.fromARGB(255, 255, 0, 0)
               : isExisting
                   ? const Color.fromARGB(255, 51, 255, 0)
-                  : ThemeUtils.$secondaryColor,
+                  : isVerifying
+                      ? ThemeUtils.$secondaryColor
+                      : ThemeUtils.$secondaryColor,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(10),
@@ -316,10 +395,12 @@ class _InviteFriendsFamilyState extends State<InviteFriendsFamily> {
                 emailAddresses.remove(email);
               });
             },
-            icon: const Icon(
-              FluentIcons.delete_24_regular,
-              color: Colors.red,
-            ),
+            icon: Icon(FluentIcons.delete_24_regular,
+                color: isInvalid
+                    ? const Color.fromARGB(255, 255, 0, 0)
+                    : isExisting
+                        ? const Color.fromARGB(255, 51, 255, 0)
+                        : const Color.fromARGB(255, 255, 0, 0)),
           ),
         ],
       ),

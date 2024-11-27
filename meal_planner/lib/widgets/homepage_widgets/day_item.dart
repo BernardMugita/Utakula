@@ -211,9 +211,13 @@ class _DayItemState extends State<DayItem> {
                                               builder: (context, snapshot) {
                                                 if (snapshot.connectionState ==
                                                     ConnectionState.waiting) {
-                                                  return Lottie.asset(
-                                                      fit: BoxFit.cover,
-                                                      "assets/animations/Loading.json");
+                                                  return SizedBox(
+                                                    width: 80,
+                                                    height: 80,
+                                                    child: Lottie.asset(
+                                                        fit: BoxFit.cover,
+                                                        "assets/animations/Loading.json"),
+                                                  );
                                                 } else if (snapshot.hasError) {
                                                   return const Icon(
                                                     FluentIcons.food_24_regular,

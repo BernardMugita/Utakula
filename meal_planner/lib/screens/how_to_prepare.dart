@@ -136,8 +136,8 @@ class _HowToPrepareState extends State<HowToPrepare> {
                                     ConnectionState.waiting) {
                                   return Lottie.asset(
                                     "assets/animations/Loading.json",
-                                    width: 120,
-                                    height: 120,
+                                    width: 80,
+                                    height: 80,
                                     repeat: true,
                                   );
                                 } else if (snapshot.hasError) {
@@ -146,16 +146,19 @@ class _HowToPrepareState extends State<HowToPrepare> {
                                     size: 50,
                                   );
                                 } else {
-                                  return Image.network(
-                                    snapshot.data!,
-                                    fit: BoxFit.contain,
-                                    height: 120,
-                                    width: 120,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                      FluentIcons.food_24_regular,
-                                      size: 120,
+                                  return Align(
+                                    widthFactor: 0.5,
+                                    child: Image.network(
+                                      snapshot.data!,
+                                      fit: BoxFit.contain,
+                                      height: 120,
+                                      width: 120,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              const Icon(
+                                        FluentIcons.food_24_regular,
+                                        size: 120,
+                                      ),
                                     ),
                                   );
                                 }

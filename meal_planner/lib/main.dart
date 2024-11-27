@@ -60,7 +60,9 @@ class MyApp extends StatelessWidget {
           '/new_plan': (context) => const NewMealPlan(
                 userMealPlan: [],
               ),
-          '/invite': (context) => const InviteFriendsFamily(),
+          '/invite': (context) => const InviteFriendsFamily(
+                mealPlan: {},
+              ),
           '/account': (context) => const UserAccount(),
         });
   }

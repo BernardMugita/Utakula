@@ -1,10 +1,11 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:meal_planner/screens/invite_friends_family.dart';
 import 'package:meal_planner/utils/theme_utils.dart';
 
 class ActionItem extends StatefulWidget {
-  final List myMealPlan;
+  final Map<String, dynamic> myMealPlan;
 
   const ActionItem({Key? key, required this.myMealPlan}) : super(key: key);
 
@@ -18,7 +19,8 @@ class _ActionItemState extends State<ActionItem> {
     return SizedBox(
       width: double.infinity,
       child: Column(children: [
-        if (widget.myMealPlan.isNotEmpty)
+        if (widget.myMealPlan.isNotEmpty &&
+            widget.myMealPlan['meal_plan'].isNotEmpty)
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -27,7 +29,12 @@ class _ActionItemState extends State<ActionItem> {
                 borderRadius: BorderRadius.circular(20)),
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/invite');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InviteFriendsFamily(
+                                mealPlan: widget.myMealPlan,
+                              )));
                 },
                 style: const ButtonStyle(
                     elevation: WidgetStatePropertyAll(0),

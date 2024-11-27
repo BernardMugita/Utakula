@@ -78,4 +78,28 @@ class MealPlanApi {
       throw Exception('Something went wrong ${e.toString()}');
     }
   }
+
+  Future<Map<String, dynamic>> fetchSharedMealPlans(
+      {required String? token}) async {
+    String url = FuncUtils.$serverUrl;
+
+    try {
+      final request = await http.post(
+          Uri.parse("$url/ratiba/meal_plans/fetch_plans"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $token'
+          });
+
+      if (request.statusCode == 200) {
+        final requestData = jsonDecode(request.body);
+        return requestData as Map<String, dynamic>;
+      } else {
+        final requestData = jsonDecode(request.body);
+        return requestData as Map<String, dynamic>;
+      }
+    } catch (e) {
+      throw Exception('Something went wrong ${e.toString()}');
+    }
+  }
 }

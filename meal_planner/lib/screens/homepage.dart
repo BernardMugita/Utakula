@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
@@ -7,6 +8,7 @@ import 'package:meal_planner/utils/theme_utils.dart';
 import 'package:meal_planner/widgets/homepage_widgets/action_items.dart';
 import 'package:meal_planner/widgets/homepage_widgets/date_banner.dart';
 import 'package:meal_planner/widgets/homepage_widgets/days_widget.dart';
+import 'package:meal_planner/widgets/homepage_widgets/no_meal_plan_alert.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -18,7 +20,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   Map selectedPlan = {};
   bool isFetchingMealPlan = false;
-  List<dynamic> myMealPlan = [];
+  Map<String, dynamic> myMealPlan = {};
+  List sharedMealPlans = [];
   String message = '';
   String? token = '';
 
@@ -36,11 +39,41 @@ class _HomepageState extends State<Homepage> {
 
       if (getMealPlanRequest['status'] == "success") {
         setState(() {
-          myMealPlan = getMealPlanRequest['payload']['meal_plan'];
-          selectedPlan = _getTodayMealPlan(myMealPlan);
+          myMealPlan = getMealPlanRequest['payload'];
+          selectedPlan = _getTodayMealPlan(myMealPlan['meal_plan']);
           isFetchingMealPlan = false;
         });
       } else if (getMealPlanRequest['status'] == "error") {
+        setState(() {
+          isFetchingMealPlan = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        message = e.toString();
+        isFetchingMealPlan = false;
+      });
+    }
+
+    return {};
+  }
+
+  Future<Map<String, dynamic>> getSharedPlans() async {
+    setState(() {
+      isFetchingMealPlan = true;
+    });
+
+    try {
+      String? token = await appFuncs.fetchUserToken();
+      final getSharedMealPlanRequest =
+          await mealPlan.fetchSharedMealPlans(token: token);
+
+      if (getSharedMealPlanRequest['status'] == "success") {
+        setState(() {
+          sharedMealPlans = getSharedMealPlanRequest['payload'];
+          isFetchingMealPlan = false;
+        });
+      } else if (getSharedMealPlanRequest['status'] == "error") {
         setState(() {
           isFetchingMealPlan = false;
         });
@@ -77,6 +110,7 @@ class _HomepageState extends State<Homepage> {
 
   Future<void> initializeData() async {
     await getMealPlan();
+    await getSharedPlans();
     token = await appFuncs.fetchUserToken();
   }
 
@@ -102,61 +136,43 @@ class _HomepageState extends State<Homepage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const DateBanner(),
-                const Gap(30),
+                const Gap(5),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Icon(FluentIcons.info_24_regular),
+                      Gap(5),
+                      Text(
+                        "Slide to logout",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: ThemeUtils.$primaryColor, fontSize: 12),
+                      )
+                    ],
+                  ),
+                ),
+                const Gap(10),
                 SizedBox(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height / 1.8,
                     child: isFetchingMealPlan
                         ? Lottie.asset("assets/animations/Loading.json")
                         : myMealPlan.isEmpty
-                            ? Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: ThemeUtils.$secondaryColor),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Image(
-                                        image: AssetImage(
-                                            'assets/images/food_404.png')),
-                                    const Text(
-                                        "You have not created a meal plan yet!"),
-                                    ElevatedButton(
-                                        style: ButtonStyle(
-                                            shape: WidgetStatePropertyAll(
-                                                RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10))),
-                                            backgroundColor:
-                                                const WidgetStatePropertyAll(
-                                                    ThemeUtils.$primaryColor)),
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, '/new_plan');
-                                        },
-                                        child: const Text(
-                                          "Get Started",
-                                          style: TextStyle(
-                                              color:
-                                                  ThemeUtils.$secondaryColor),
-                                        ))
-                                  ],
-                                ),
-                              )
+                            ? const NoMealPlanAlert()
                             : DaysWidget(
                                 selectedPlan: selectedPlan,
                                 handleSelectPlan: handleSelectPlan,
                                 resetPlan: resetPlan,
                                 isFetchingMealPlan: isFetchingMealPlan,
-                                myMealPlan: myMealPlan,
+                                myMealPlan: myMealPlan['meal_plan'],
+                                sharedPlans: sharedMealPlans,
                                 message: message)),
                 const Gap(30),
-                ActionItem(
-                  myMealPlan: myMealPlan,
-                )
+                if (!isFetchingMealPlan)
+                  ActionItem(
+                    myMealPlan: myMealPlan,
+                  )
               ]),
         ),
       )),

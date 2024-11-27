@@ -1,4 +1,7 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:meal_planner/screens/member_meal_plans.dart';
 import 'package:meal_planner/screens/new_meal_plan.dart';
 import 'package:meal_planner/utils/theme_utils.dart';
 import 'package:meal_planner/widgets/homepage_widgets/day_item.dart';
@@ -7,6 +10,7 @@ class DaysWidget extends StatefulWidget {
   final Map selectedPlan;
   final bool isFetchingMealPlan;
   final List myMealPlan;
+  final List sharedPlans;
   final String message;
   final Function(Map<String, dynamic>) handleSelectPlan;
   final Function() resetPlan;
@@ -16,6 +20,7 @@ class DaysWidget extends StatefulWidget {
       required this.selectedPlan,
       required this.isFetchingMealPlan,
       required this.myMealPlan,
+      required this.sharedPlans,
       required this.message,
       required this.handleSelectPlan,
       required this.resetPlan})
@@ -31,6 +36,9 @@ class _DaysWidgetState extends State<DaysWidget> {
     Map selectedPlan = widget.selectedPlan;
     // final isFetchingMealPlan = widget.isFetchingMealPlan;
     List myMealPlan = widget.myMealPlan;
+    List sharedMealPlans = widget.sharedPlans;
+
+    print(MediaQuery.of(context).size.width);
 
     return Container(
       width: double.infinity,
@@ -42,37 +50,6 @@ class _DaysWidgetState extends State<DaysWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Your meal plan:",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: ThemeUtils.$primaryColor,
-                      fontSize: 25,
-                      decorationColor: ThemeUtils.$primaryColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => NewMealPlan(
-                                  userMealPlan: myMealPlan,
-                                )));
-                  },
-                  child: CircleAvatar(
-                    backgroundColor: ThemeUtils.$blacks.withOpacity(0.1),
-                    child: const Icon(
-                      Icons.edit,
-                      color: ThemeUtils.$primaryColor,
-                    ),
-                  ),
-                )
-              ],
-            ),
             Wrap(
               alignment: WrapAlignment.center,
               runAlignment: WrapAlignment.center,
@@ -97,18 +74,96 @@ class _DaysWidgetState extends State<DaysWidget> {
             ),
             SizedBox(
               width: double.infinity,
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: CircleAvatar(
-                    backgroundColor: ThemeUtils.$blacks.withOpacity(0.1),
-                    child: const Icon(
-                      Icons.list,
-                      color: ThemeUtils.$primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (sharedMealPlans.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MemberMealPlans(
+                                  sharedMealPlans: sharedMealPlans,
+                                ),
+                              ),
+                            );
+                          },
+                          style: ButtonStyle(
+                              side: const WidgetStatePropertyAll(
+                                  BorderSide(color: ThemeUtils.$primaryColor)),
+                              shape: WidgetStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              padding: const WidgetStatePropertyAll(
+                                  EdgeInsets.only(
+                                      top: 5, bottom: 5, left: 10, right: 10))),
+                          child: Row(
+                            children: [
+                              const Text(
+                                "Member meal Plans",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: ThemeUtils.$blacks),
+                              ),
+                              const Gap(10),
+                              CircleAvatar(
+                                backgroundColor:
+                                    ThemeUtils.$blacks.withOpacity(0.1),
+                                child: const Icon(
+                                  FluentIcons.food_chicken_leg_24_regular,
+                                  size: 16,
+                                  color: ThemeUtils.$primaryColor,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          child: Text(
+                            "Your shared meal plans",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                )
-              ]),
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewMealPlan(
+                                        userMealPlan: myMealPlan,
+                                      )));
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: ThemeUtils.$blacks.withOpacity(0.1),
+                          child: const Icon(
+                            Icons.edit,
+                            color: ThemeUtils.$primaryColor,
+                          ),
+                        ),
+                      ),
+                      const Gap(5),
+                      const SizedBox(
+                        child: Text(
+                          "Edit",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             )
           ]),
     );

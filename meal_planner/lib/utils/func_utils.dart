@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,7 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class FuncUtils {
   static const $baseUrl = "https://utakula.finalyze.app/utakula";
 
-  static const $serverUrl = "https://2c86-41-90-173-108.ngrok-free.app/utakula";
+  static const $serverUrl = "https://9cdc-41-90-174-131.ngrok-free.app/utakula";
 
   JsonEncoder encoder = const JsonEncoder.withIndent('  ');
 
@@ -66,12 +67,22 @@ class FuncUtils {
     if (token == null) {
       return false;
     } else {
-      final decodedToken = JwtDecoder.decode(token);
+      try {
+        // Decode the token
+        final decodedToken = JwtDecoder.decode(token);
 
-      if (DateTime(decodedToken['exp']).hour <= 0) {
+        final int expirationTime = decodedToken['exp'];
+        final DateTime expirationDate = DateTime.fromMillisecondsSinceEpoch(
+            expirationTime * 1000); // Convert seconds to milliseconds
+
+        if (DateTime.now().isAfter(expirationDate)) {
+          return false;
+        } else {
+          return true;
+        }
+      } catch (e) {
+        print("Error decoding token: $e");
         return false;
-      } else {
-        return true;
       }
     }
   }
@@ -93,15 +104,15 @@ class FuncUtils {
       Reference ref = FirebaseStorage.instance
           .refFromURL('gs://mealplanner-86fce.appspot.com/$filePath');
 
-      print(ref);
       String downloadUrl = await ref.getDownloadURL();
-      print('Download URL fetched: $downloadUrl');
       return downloadUrl;
     } catch (e) {
-      print("Error occurred while fetching the download URL: $e");
       return "";
     }
   }
+
+  bool isLowerResolution(BuildContext context) =>
+      MediaQuery.of(context).size.width <= 380;
 
   String formatNutrients(String nutrient) {
     if (nutrient == "carbohydrate") {

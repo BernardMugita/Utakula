@@ -142,7 +142,9 @@ class _LoginState extends State<Login> {
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  style: const TextStyle(),
+                  style: const TextStyle(
+                    color: ThemeUtils.$secondaryColor
+                  ),
                   decoration: const InputDecoration(
                       hintStyle: TextStyle(color: ThemeUtils.$secondaryColor),
                       enabledBorder: UnderlineInputBorder(
