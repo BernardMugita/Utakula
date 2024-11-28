@@ -64,7 +64,9 @@ class _ActionItemState extends State<ActionItem> {
               border: Border.all(),
               borderRadius: BorderRadius.circular(20)),
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/meal_templates');
+              },
               style: const ButtonStyle(
                   elevation: WidgetStatePropertyAll(0),
                   backgroundColor:

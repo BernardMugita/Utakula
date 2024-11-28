@@ -131,7 +131,6 @@ class _DateBannerState extends State<DateBanner> {
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: ThemeUtils.$secondaryColor,
-                          border: Border.all(color: ThemeUtils.$primaryColor),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Text(

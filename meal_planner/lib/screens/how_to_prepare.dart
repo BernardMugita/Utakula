@@ -78,7 +78,6 @@ class _HowToPrepareState extends State<HowToPrepare> {
     final args = ModalRoute.of(context)?.settings.arguments as Map?;
     selectedPlan = args?['selectedPlan'] ?? {};
 
-    // Fetch instructions for all meal types on initialization
     fetchInstructionsForAllMealTypes();
   }
 

@@ -38,8 +38,6 @@ class _DaysWidgetState extends State<DaysWidget> {
     List myMealPlan = widget.myMealPlan;
     List sharedMealPlans = widget.sharedPlans;
 
-    print(MediaQuery.of(context).size.width);
-
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -116,7 +114,7 @@ class _DaysWidgetState extends State<DaysWidget> {
                                 backgroundColor:
                                     ThemeUtils.$blacks.withOpacity(0.1),
                                 child: const Icon(
-                                  FluentIcons.food_chicken_leg_24_regular,
+                                  FluentIcons.people_24_regular,
                                   size: 16,
                                   color: ThemeUtils.$primaryColor,
                                 ),

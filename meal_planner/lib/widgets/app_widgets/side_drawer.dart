@@ -73,11 +73,11 @@ class _SideDrawerState extends State<SideDrawer> {
                 tabTitle: 'Recipies'),
             const DrawerTab(
                 icon: Icon(FluentIcons.clock_24_regular),
-                route: '/recipes',
+                route: '/reminders',
                 tabTitle: 'Reminders'),
             const DrawerTab(
                 icon: Icon(FluentIcons.settings_24_regular),
-                route: '/recipes',
+                route: '/settings',
                 tabTitle: 'Settings'),
             const Spacer(),
             ElevatedButton(

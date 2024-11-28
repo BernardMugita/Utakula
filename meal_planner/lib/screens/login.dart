@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:meal_planner/services/auth.dart';
@@ -19,6 +20,7 @@ class _LoginState extends State<Login> {
   Auth loginRequest = Auth();
 
   bool isLoading = false;
+  bool showPassword = false;
 
   Future<Map> singInToAccount() async {
     setState(() {
@@ -141,18 +143,40 @@ class _LoginState extends State<Login> {
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
                   controller: passwordController,
-                  obscureText: true,
-                  style: const TextStyle(
-                    color: ThemeUtils.$secondaryColor
-                  ),
-                  decoration: const InputDecoration(
-                      hintStyle: TextStyle(color: ThemeUtils.$secondaryColor),
-                      enabledBorder: UnderlineInputBorder(
+                  obscureText: showPassword,
+                  style: const TextStyle(color: ThemeUtils.$secondaryColor),
+                  decoration: InputDecoration(
+                      hintStyle:
+                          const TextStyle(color: ThemeUtils.$secondaryColor),
+                      enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                             color: ThemeUtils
                                 .$secondaryColor), // White bottom border when inactive
                       ),
-                      prefixIcon: Icon(
+                      suffixIcon: showPassword
+                          ? GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                              child: const Icon(
+                                FluentIcons.eye_off_24_regular,
+                                color: ThemeUtils.$secondaryColor,
+                              ),
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                              child: const Icon(
+                                FluentIcons.eye_24_regular,
+                                color: ThemeUtils.$secondaryColor,
+                              ),
+                            ),
+                      prefixIcon: const Icon(
                         Icons.password,
                         color: ThemeUtils.$secondaryColor,
                       ),

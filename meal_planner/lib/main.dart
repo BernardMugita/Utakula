@@ -7,7 +7,9 @@ import 'package:meal_planner/screens/how_to_prepare.dart';
 import 'package:meal_planner/screens/invite_friends_family.dart';
 import 'package:meal_planner/screens/login.dart';
 import 'package:meal_planner/screens/day_meal_plan.dart';
+import 'package:meal_planner/screens/meal_templates.dart';
 import 'package:meal_planner/screens/new_meal_plan.dart';
+import 'package:meal_planner/screens/recipes.dart';
 import 'package:meal_planner/screens/user_account.dart';
 import 'package:meal_planner/utils/func_utils.dart';
 import 'package:meal_planner/utils/theme_utils.dart';
@@ -64,6 +66,8 @@ class MyApp extends StatelessWidget {
                 mealPlan: {},
               ),
           '/account': (context) => const UserAccount(),
+          '/meal_templates': (context) => const MealTemplates(),
+          '/recipes': (context) => const Recipes(),
         });
   }
 }
