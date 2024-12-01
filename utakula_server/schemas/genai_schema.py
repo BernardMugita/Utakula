@@ -5,10 +5,10 @@ class PromptBody(BaseModel):
     spices: list[str]
     narrative: str
 
-class genAIResponse(BaseModel):
+class GenAIResponse(BaseModel):
     status: str
     message: str
-    payload: str
+    payload: str | dict
     
     class Config:
         from_attributes = True
