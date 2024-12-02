@@ -67,41 +67,100 @@ class _RecipesState extends State<Recipes> {
     );
   }
 
-  Future<Map<String, dynamic>> customRecipe() async {
+  Future<Map<String, dynamic>> customRecipe(BuildContext context) async {
     setState(() {
       generatingRecipe = true;
     });
+
+    // Validate input data
+    if (foods.isEmpty || spices.isEmpty || narrativeController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please provide foods, spices, and a narrative."),
+          backgroundColor: Colors.red,
+        ),
+      );
+      setState(() {
+        generatingRecipe = false;
+      });
+      return {};
+    }
+
     try {
       String? token = await appFuncs.fetchUserToken();
-      if (token != null) {
-        final response = await ai.getCustomRecipe(
-          token,
-          foods,
-          spices,
-          narrativeController.text,
-        );
+      if (token == null) {
+        throw Exception("User token is null or invalid.");
+      }
 
-        if (response['status'] == "success") {
-          setState(() {
-            success = true;
-            customInstructions = response['payload']['candidates'][0]['content']
-                    ['parts'][0]['text'] ??
-                '';
+      // Generate the recipe
+      final response = await ai.getCustomRecipe(
+        token,
+        foods,
+        spices,
+        narrativeController.text,
+      );
 
-            generatingRecipe = false;
-          });
-        } else if (response['status'] == "error") {
-          setState(() {
-            error = true;
-            generatingRecipe = false;
-          });
+      // Validate response structure
+      if (response['status'] == "success") {
+        final candidates = response['payload']['candidates'] as List?;
+        if (candidates == null || candidates.isEmpty) {
+          throw Exception("No recipe candidates found in the response.");
         }
+
+        final contentParts = candidates[0]['content']['parts'] as List?;
+        if (contentParts == null || contentParts.isEmpty) {
+          throw Exception("No content parts found in the recipe candidate.");
+        }
+
+        final recipeText = contentParts[0]['text'] ?? '';
+        if (recipeText.isEmpty) {
+          throw Exception("Generated recipe text is empty.");
+        }
+
+        setState(() {
+          success = true;
+          customInstructions = recipeText;
+          generatingRecipe = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Recipe generated successfully!"),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else if (response['status'] == "error") {
+        final errorMessage = response['message'] ?? "Unknown error occurred.";
+        throw Exception(errorMessage);
       }
     } catch (e) {
-      print(e);
+      print("Error generating recipe: $e");
+
+      setState(() {
+        error = true;
+        generatingRecipe = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: ${e.toString()}"),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
 
     return {};
+  }
+
+  void _resetInstructions() {
+    setState(() {
+      success = false;
+      error = false;
+      generatingRecipe = false;
+      customInstructions = '';
+      foods = [];
+      spices = [];
+    });
   }
 
   @override
@@ -141,47 +200,118 @@ class _RecipesState extends State<Recipes> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Food:",
-                            style: TextStyle(
-                                fontSize: 18, color: ThemeUtils.$primaryColor)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Food:",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: ThemeUtils.$primaryColor,
+                                    fontWeight: FontWeight.bold)),
+                            GestureDetector(
+                              onTap: () {
+                                _resetInstructions();
+                              },
+                              child: const CircleAvatar(
+                                backgroundColor: ThemeUtils.$primaryColor,
+                                child: Icon(
+                                  FluentIcons.rotate_left_24_regular,
+                                  color: ThemeUtils.$backgroundColor,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                         const Gap(10),
                         Text(
                             textAlign: TextAlign.start,
-                            "${data['recipe']['title']}"),
+                            "${data['recipe']['name']}"),
                         const Gap(10),
                         const Text("Ingredients:",
                             style: TextStyle(
-                                fontSize: 18, color: ThemeUtils.$primaryColor)),
+                                fontSize: 18,
+                                color: ThemeUtils.$primaryColor,
+                                fontWeight: FontWeight.bold)),
                         const Gap(10),
-                        if (data.isNotEmpty && data['recipe']['ingredients'] != null)
-                          for (var entry
-                              in (data['recipe']['ingredients'] as Map<String, dynamic>)
-                                  .entries)
-                            Container(
-                              width: double.infinity,
-                              margin: const EdgeInsets.only(bottom: 10),
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: ThemeUtils.$secondaryColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
+                        Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: ThemeUtils.$secondaryColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (data.isNotEmpty &&
+                                  data['recipe']['ingredients'] != null)
+                                for (var ingredient in data['recipe']
+                                    ['ingredients'])
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            FluentIcons
+                                                .bubble_multiple_20_regular,
+                                            color: ThemeUtils.$primaryColor,
+                                          ),
+                                          const Gap(10),
+                                          Expanded(
+                                              child: Text(
+                                            ingredient, // Ingredient name
+                                            style: const TextStyle(
+                                              color: ThemeUtils.$blacks,
+                                            ),
+                                          )),
+                                        ],
+                                      ),
+                                      const Gap(10)
+                                    ],
+                                  ),
+                            ],
+                          ),
+                        ),
+                        const Gap(10),
+                        const Text("Instructions:",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: ThemeUtils.$primaryColor,
+                                fontWeight: FontWeight.bold)),
+                        const Gap(10),
+                        Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: ThemeUtils.$secondaryColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    entry.key.toString(), // Ingredient name
-                                    style: const TextStyle(
-                                        color: ThemeUtils.$primaryColor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text("Amount: ${entry.value['amount']}"),
-                                  Text(
-                                      "Preparation: ${entry.value['preparation']}"),
-                                ],
-                              ),
-                            ),
-                            const Gap(10),
-                        
+                                  for (var instruction in data['recipe']
+                                      ['instructions'])
+                                    Column(
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(
+                                              FluentIcons
+                                                  .bubble_multiple_20_regular,
+                                              color: ThemeUtils.$primaryColor,
+                                            ),
+                                            const Gap(10),
+                                            Expanded(child: Text(instruction))
+                                          ],
+                                        ),
+                                        const Gap(10)
+                                      ],
+                                    )
+                                ]))
                       ],
                     ),
                   )
@@ -329,7 +459,7 @@ class _RecipesState extends State<Recipes> {
                           ),
                         ),
                         onPressed: () {
-                          customRecipe();
+                          customRecipe(context);
                         },
                         child: const Text("Get Prep Instructions"),
                       )

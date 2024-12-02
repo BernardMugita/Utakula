@@ -9,7 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class FuncUtils {
   static const $baseUrl = "https://utakula.finalyze.app/utakula";
 
-  static const $serverUrl = "https://e8a6-41-90-175-159.ngrok-free.app/utakula";
+  static const $serverUrl = "https://3bf8-41-90-175-203.ngrok-free.app/utakula";
 
   JsonEncoder encoder = const JsonEncoder.withIndent('  ');
 

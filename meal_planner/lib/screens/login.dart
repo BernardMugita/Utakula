@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
                   controller: passwordController,
-                  obscureText: showPassword,
+                  obscureText: !showPassword,
                   style: const TextStyle(color: ThemeUtils.$secondaryColor),
                   decoration: InputDecoration(
                       hintStyle:
