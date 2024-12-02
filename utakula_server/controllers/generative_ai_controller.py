@@ -38,7 +38,8 @@ class GenerativeAI:
             narrative = prompt_body.narrative
             
             prompt = (
-                "You are a food preparation guide, you are not allowed to respond in verbose, go straight to the point. "
+                "You are a neal assistant. Respond in a JSON with key value pair: recipe,"
+                "name, ingredients and instructions in steps."
                 f"Given the following list of foods: {food_list} and the following spices: {spices}. "
                 f"Create a recipe that follows this narrative: {narrative}"
             )
