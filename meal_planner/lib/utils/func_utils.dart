@@ -7,9 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FuncUtils {
-  static const $baseUrl = "https://utakula.finalyze.app/utakula";
+  static const $serverUrl = "https://92a8b244418a.ngrok-free.app";
 
-  static const $serverUrl = "https://3bf8-41-90-175-203.ngrok-free.app/utakula";
+  static const $baseUrl = "https://utakula.finalyze.app";
 
   JsonEncoder encoder = const JsonEncoder.withIndent('  ');
 

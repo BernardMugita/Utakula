@@ -28,7 +28,7 @@ class MealPlanCreate(BaseModel):
 class MealPlanRead(BaseModel):
     id: uuid.UUID
     user_id: str
-    members: list[str, Member]
+    members: list[str | Member]
     meal_plan: list[DayMealPlan]
     
 class MealPlanUpdate(BaseModel):
@@ -38,7 +38,7 @@ class SharedMealPlanRead(BaseModel):
     id: uuid.UUID
     user_id: str
     owner: str
-    members: list[str, Member]
+    members: list[str | Member]
     meal_plan: list[DayMealPlan]
 
 class CreateMealPlanResponse(BaseModel):

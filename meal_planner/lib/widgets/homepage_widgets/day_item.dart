@@ -212,8 +212,8 @@ class _DayItemState extends State<DayItem> {
                                                 if (snapshot.connectionState ==
                                                     ConnectionState.waiting) {
                                                   return SizedBox(
-                                                    width: 80,
-                                                    height: 80,
+                                                    width: 50,
+                                                    height: 50,
                                                     child: Lottie.asset(
                                                         fit: BoxFit.cover,
                                                         "assets/animations/Loading.json"),

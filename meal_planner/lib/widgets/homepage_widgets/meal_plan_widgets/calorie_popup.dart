@@ -74,7 +74,8 @@ class _CaloriePopupState extends State<CaloriePopup> {
                             child: Lottie.asset(
                               "assets/animations/Loading.json",
                               fit: BoxFit.cover, // Adjust the fit if necessary
-                              repeat: true, // Ensures the animation keeps looping
+                              repeat:
+                                  true, // Ensures the animation keeps looping
                             ),
                           ),
                         );
@@ -100,9 +101,9 @@ class _CaloriePopupState extends State<CaloriePopup> {
                           ),
                         );
                       } else {
-                        return Container(
+                        return const SizedBox(
                           child: Text("We have a problem!"),
-                        ); // Handle case where snapshot has no data
+                        );
                       }
                     },
                   ),

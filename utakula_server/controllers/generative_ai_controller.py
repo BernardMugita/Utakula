@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Header, status
 from fastapi.responses import JSONResponse
-import google.generativeai as genai
+import google as genai
 import os
 
 from schemas.genai_schema import PromptBody, GenAIResponse
@@ -30,6 +30,8 @@ class GenerativeAI:
             utils.validate_JWT(token)
             
             # Generate Content
+            # client = genai.Client()
+            
             genai.configure(api_key=os.environ['API_KEY'])
             model = genai.GenerativeModel("gemini-1.5-flash", generation_config={"response_mime_type": "application/json"})
             

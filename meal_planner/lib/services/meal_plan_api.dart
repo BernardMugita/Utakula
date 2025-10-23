@@ -65,8 +65,6 @@ class MealPlanApi {
               },
               body: jsonEncode(<String, dynamic>{'meal_plan': mealPlan}));
 
-      print(request);
-
       if (request.statusCode == 200) {
         final requestData = jsonDecode(request.body);
         return requestData as Map<String, dynamic>;

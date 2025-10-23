@@ -33,8 +33,6 @@ class InvitationApi {
       String token, List<dynamic> emailList, String mealPlanId) async {
     String url = FuncUtils.$serverUrl;
 
-    print("Reached");
-
     try {
       final request = await http.post(
           Uri.parse("$url/ombi/invite/send_out_invites"),
